@@ -1,10 +1,7 @@
-import { Pool } from "pg";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { env } from "./env.js";
 
-const pool = new Pool({
-  connectionString: env.DATABASE_URL,
-  max: 3,
-  connectionTimeoutMillis: 5000,
-});
+const rawClient = new DynamoDBClient({ region: env.AWS_REGION });
 
-export default pool
+export const docClient = DynamoDBDocumentClient.from(rawClient);

@@ -1,8 +1,10 @@
-import { z } from "zod/v4";
+import * as z from "zod";
+import "dotenv/config"
 
 const envSchema = z.object({
-  DATABASE_URL: z.url(),
   PORT: z.coerce.number().default(3001),
+  AWS_REGION: z.string(),
+  DYNAMODB_TABLE: z.string(),
 });
 
 const parsed = envSchema.safeParse(process.env);
